@@ -40,7 +40,7 @@ BASE_APPS = [
 ]
 
 THIRTY_APPS = [
-    'restframework',
+    'rest_framework',
 ]
 
 LOCAL_APPS = [
