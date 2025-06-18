@@ -131,28 +131,28 @@ class Producto(models.Model):
         verbose_name_plural = "Productos"
 
 
-# # Modelo para Etiquetas personalizadas
-# class Etiqueta(models.Model):
-#     nombre = models.CharField(max_length=50, unique=True)
-#     color = models.CharField(max_length=7, default='#007bff')  # Color hexadecimal
-#     descripcion = models.TextField(blank=True)
+# Modelo para Etiquetas personalizadas
+class Etiqueta(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
+    color = models.CharField(max_length=7, default='#007bff')  # Color hexadecimal
+    descripcion = models.TextField(blank=True)
 
-#     def __str__(self):
-#         return self.nombre
+    def __str__(self):
+        return self.nombre
 
-#     class Meta:
-#         verbose_name = "Etiqueta"
-#         verbose_name_plural = "Etiquetas"
+    class Meta:
+        verbose_name = "Etiqueta"
+        verbose_name_plural = "Etiquetas"
 
 
-# # Tabla intermedia para productos y etiquetas
-# class ProductoEtiqueta(models.Model):
-#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-#     etiqueta = models.ForeignKey(Etiqueta, on_delete=models.CASCADE)
-#     fecha_asignacion = models.DateTimeField(auto_now_add=True)
+# Tabla intermedia para productos y etiquetas
+class ProductoEtiqueta(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    etiqueta = models.ForeignKey(Etiqueta, on_delete=models.CASCADE)
+    fecha_asignacion = models.DateTimeField(auto_now_add=True)
 
-#     class Meta:
-#         unique_together = ('producto', 'etiqueta')
+    class Meta:
+        unique_together = ('producto', 'etiqueta')
 
 
 # # Modelo para Lotes
