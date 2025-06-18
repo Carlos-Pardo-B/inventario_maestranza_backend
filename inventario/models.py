@@ -255,120 +255,120 @@ class Proyecto(models.Model):
         verbose_name_plural = "Proyectos"
 
 
-# # Modelo para Movimientos de Inventario
-# class MovimientoInventario(models.Model):
-#     TIPOS_MOVIMIENTO = [
-#         ('INGRESO', 'Ingreso'),
-#         ('SALIDA', 'Salida'),
-#         ('TRANSFERENCIA', 'Transferencia'),
-#         ('AJUSTE', 'Ajuste'),
-#         ('DEVOLUCION', 'Devolución'),
-#     ]
+# Modelo para Movimientos de Inventario
+class MovimientoInventario(models.Model):
+    TIPOS_MOVIMIENTO = [
+        ('INGRESO', 'Ingreso'),
+        ('SALIDA', 'Salida'),
+        ('TRANSFERENCIA', 'Transferencia'),
+        ('AJUSTE', 'Ajuste'),
+        ('DEVOLUCION', 'Devolución'),
+    ]
 
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     numero = models.CharField(max_length=20, unique=True)
-#     tipo = models.CharField(max_length=20, choices=TIPOS_MOVIMIENTO)
-#     producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='movimientos')
-#     lote = models.ForeignKey(Lote, on_delete=models.PROTECT, related_name='movimientos', null=True, blank=True)
-#     cantidad = models.PositiveIntegerField()
-#     precio_unitario = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-#     ubicacion_origen = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_origen', null=True, blank=True)
-#     ubicacion_destino = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_destino', null=True, blank=True)
-#     proyecto = models.ForeignKey(Proyecto, on_delete=models.PROTECT, null=True, blank=True)
-#     proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT, null=True, blank=True)
-#     documento_referencia = models.CharField(max_length=100, blank=True)
-#     observaciones = models.TextField(blank=True)
-#     fecha_movimiento = models.DateTimeField(auto_now_add=True)
-#     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    numero = models.CharField(max_length=20, unique=True)
+    tipo = models.CharField(max_length=20, choices=TIPOS_MOVIMIENTO)
+    producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='movimientos')
+    lote = models.ForeignKey(Lote, on_delete=models.PROTECT, related_name='movimientos', null=True, blank=True)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    ubicacion_origen = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_origen', null=True, blank=True)
+    ubicacion_destino = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_destino', null=True, blank=True)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.PROTECT, null=True, blank=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT, null=True, blank=True)
+    documento_referencia = models.CharField(max_length=100, blank=True)
+    observaciones = models.TextField(blank=True)
+    fecha_movimiento = models.DateTimeField(auto_now_add=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
-#     def __str__(self):
-#         return f"{self.numero} - {self.get_tipo_display()} - {self.producto.nombre}"
+    def __str__(self):
+        return f"{self.numero} - {self.get_tipo_display()} - {self.producto.nombre}"
 
-#     class Meta:
-#         verbose_name = "Movimiento de Inventario"
-#         verbose_name_plural = "Movimientos de Inventario"
-#         ordering = ['-fecha_movimiento']
-
-
-# # Modelo para Órdenes de Compra
-# class OrdenCompra(models.Model):
-#     ESTADOS = [
-#         ('BORRADOR', 'Borrador'),
-#         ('ENVIADA', 'Enviada'),
-#         ('CONFIRMADA', 'Confirmada'),
-#         ('RECIBIDA', 'Recibida'),
-#         ('CANCELADA', 'Cancelada'),
-#     ]
-
-#     numero = models.CharField(max_length=20, unique=True)
-#     proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT)
-#     estado = models.CharField(max_length=20, choices=ESTADOS, default='BORRADOR')
-#     fecha_orden = models.DateTimeField(auto_now_add=True)
-#     fecha_entrega_estimada = models.DateField()
-#     total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-#     observaciones = models.TextField(blank=True)
-#     creado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT)
-
-#     def __str__(self):
-#         return f"OC {self.numero} - {self.proveedor.nombre}"
-
-#     class Meta:
-#         verbose_name = "Orden de Compra"
-#         verbose_name_plural = "Órdenes de Compra"
+    class Meta:
+        verbose_name = "Movimiento de Inventario"
+        verbose_name_plural = "Movimientos de Inventario"
+        ordering = ['-fecha_movimiento']
 
 
-# # Modelo para Detalles de Órdenes de Compra
-# class DetalleOrdenCompra(models.Model):
-#     orden_compra = models.ForeignKey(OrdenCompra, on_delete=models.CASCADE, related_name='detalles')
-#     producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
-#     cantidad = models.PositiveIntegerField()
-#     precio_unitario = models.DecimalField(max_digits=12, decimal_places=2)
-#     subtotal = models.DecimalField(max_digits=12, decimal_places=2)
+# Modelo para Órdenes de Compra
+class OrdenCompra(models.Model):
+    ESTADOS = [
+        ('BORRADOR', 'Borrador'),
+        ('ENVIADA', 'Enviada'),
+        ('CONFIRMADA', 'Confirmada'),
+        ('RECIBIDA', 'Recibida'),
+        ('CANCELADA', 'Cancelada'),
+    ]
 
-#     def save(self, *args, **kwargs):
-#         self.subtotal = self.cantidad * self.precio_unitario
-#         super().save(*args, **kwargs)
+    numero = models.CharField(max_length=20, unique=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='BORRADOR')
+    fecha_orden = models.DateTimeField(auto_now_add=True)
+    fecha_entrega_estimada = models.DateField()
+    total = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    observaciones = models.TextField(blank=True)
+    creado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
-#     def __str__(self):
-#         return f"{self.orden_compra.numero} - {self.producto.nombre}"
+    def __str__(self):
+        return f"OC {self.numero} - {self.proveedor.nombre}"
 
-#     class Meta:
-#         unique_together = ('orden_compra', 'producto')
+    class Meta:
+        verbose_name = "Orden de Compra"
+        verbose_name_plural = "Órdenes de Compra"
 
 
-# # Modelo para Alertas del Sistema
-# class Alerta(models.Model):
-#     TIPOS_ALERTA = [
-#         ('STOCK_BAJO', 'Stock Bajo'),
-#         ('VENCIMIENTO', 'Próximo a Vencer'),
-#         ('VENCIDO', 'Vencido'),
-#         ('SISTEMA', 'Sistema'),
-#     ]
+# Modelo para Detalles de Órdenes de Compra
+class DetalleOrdenCompra(models.Model):
+    orden_compra = models.ForeignKey(OrdenCompra, on_delete=models.CASCADE, related_name='detalles')
+    producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.DecimalField(max_digits=12, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=12, decimal_places=2)
 
-#     NIVELES = [
-#         ('INFO', 'Información'),
-#         ('WARNING', 'Advertencia'),
-#         ('ERROR', 'Error'),
-#         ('CRITICAL', 'Crítico'),
-#     ]
+    def save(self, *args, **kwargs):
+        self.subtotal = self.cantidad * self.precio_unitario
+        super().save(*args, **kwargs)
 
-#     tipo = models.CharField(max_length=20, choices=TIPOS_ALERTA)
-#     nivel = models.CharField(max_length=10, choices=NIVELES)
-#     titulo = models.CharField(max_length=200)
-#     mensaje = models.TextField()
-#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
-#     lote = models.ForeignKey(Lote, on_delete=models.CASCADE, null=True, blank=True)
-#     leida = models.BooleanField(default=False)
-#     fecha_creacion = models.DateTimeField(auto_now_add=True)
-#     usuario_asignado = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return f"{self.orden_compra.numero} - {self.producto.nombre}"
 
-#     def __str__(self):
-#         return f"{self.get_tipo_display()} - {self.titulo}"
+    class Meta:
+        unique_together = ('orden_compra', 'producto')
 
-#     class Meta:
-#         verbose_name = "Alerta"
-#         verbose_name_plural = "Alertas"
-#         ordering = ['-fecha_creacion']
+
+# Modelo para Alertas del Sistema
+class Alerta(models.Model):
+    TIPOS_ALERTA = [
+        ('STOCK_BAJO', 'Stock Bajo'),
+        ('VENCIMIENTO', 'Próximo a Vencer'),
+        ('VENCIDO', 'Vencido'),
+        ('SISTEMA', 'Sistema'),
+    ]
+
+    NIVELES = [
+        ('INFO', 'Información'),
+        ('WARNING', 'Advertencia'),
+        ('ERROR', 'Error'),
+        ('CRITICAL', 'Crítico'),
+    ]
+
+    tipo = models.CharField(max_length=20, choices=TIPOS_ALERTA)
+    nivel = models.CharField(max_length=10, choices=NIVELES)
+    titulo = models.CharField(max_length=200)
+    mensaje = models.TextField()
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=True, blank=True)
+    lote = models.ForeignKey(Lote, on_delete=models.CASCADE, null=True, blank=True)
+    leida = models.BooleanField(default=False)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    usuario_asignado = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.get_tipo_display()} - {self.titulo}"
+
+    class Meta:
+        verbose_name = "Alerta"
+        verbose_name_plural = "Alertas"
+        ordering = ['-fecha_creacion']
 
 
 # # Modelo para Auditorías de Inventario
