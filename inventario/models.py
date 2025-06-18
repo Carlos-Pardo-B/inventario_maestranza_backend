@@ -155,104 +155,104 @@ class ProductoEtiqueta(models.Model):
         unique_together = ('producto', 'etiqueta')
 
 
-# # Modelo para Lotes
-# class Lote(models.Model):
-#     codigo = models.CharField(max_length=50, unique=True)
-#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='lotes')
-#     fecha_ingreso = models.DateTimeField(auto_now_add=True)
-#     fecha_vencimiento = models.DateField(null=True, blank=True)
-#     proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT)
-#     precio_compra = models.DecimalField(max_digits=12, decimal_places=2)
-#     cantidad_inicial = models.PositiveIntegerField()
-#     observaciones = models.TextField(blank=True)
+# Modelo para Lotes
+class Lote(models.Model):
+    codigo = models.CharField(max_length=50, unique=True)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='lotes')
+    fecha_ingreso = models.DateTimeField(auto_now_add=True)
+    fecha_vencimiento = models.DateField(null=True, blank=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.PROTECT)
+    precio_compra = models.DecimalField(max_digits=12, decimal_places=2)
+    cantidad_inicial = models.PositiveIntegerField()
+    observaciones = models.TextField(blank=True)
 
-#     def __str__(self):
-#         return f"Lote {self.codigo} - {self.producto.nombre}"
+    def __str__(self):
+        return f"Lote {self.codigo} - {self.producto.nombre}"
 
-#     @property
-#     def cantidad_actual(self):
-#         """Calcula la cantidad actual del lote"""
-#         ingresos = self.movimientos.filter(tipo='INGRESO').aggregate(
-#             total=models.Sum('cantidad'))['total'] or 0
-#         salidas = self.movimientos.filter(tipo='SALIDA').aggregate(
-#             total=models.Sum('cantidad'))['total'] or 0
-#         return ingresos - salidas
+    @property
+    def cantidad_actual(self):
+        """Calcula la cantidad actual del lote"""
+        ingresos = self.movimientos.filter(tipo='INGRESO').aggregate(
+            total=models.Sum('cantidad'))['total'] or 0
+        salidas = self.movimientos.filter(tipo='SALIDA').aggregate(
+            total=models.Sum('cantidad'))['total'] or 0
+        return ingresos - salidas
 
-#     @property
-#     def esta_vencido(self):
-#         """Verifica si el lote está vencido"""
-#         if self.fecha_vencimiento:
-#             from django.utils import timezone
-#             return timezone.now().date() > self.fecha_vencimiento
-#         return False
+    @property
+    def esta_vencido(self):
+        """Verifica si el lote está vencido"""
+        if self.fecha_vencimiento:
+            from django.utils import timezone
+            return timezone.now().date() > self.fecha_vencimiento
+        return False
 
-#     class Meta:
-#         verbose_name = "Lote"
-#         verbose_name_plural = "Lotes"
-
-
-# # Modelo para Kits o Conjuntos
-# class Kit(models.Model):
-#     codigo = models.CharField(max_length=50, unique=True)
-#     nombre = models.CharField(max_length=200)
-#     descripcion = models.TextField()
-#     activo = models.BooleanField(default=True)
-#     fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"{self.codigo} - {self.nombre}"
-
-#     @property
-#     def disponible(self):
-#         """Verifica si el kit está disponible basado en sus componentes"""
-#         for componente in self.componentes.all():
-#             if componente.producto.stock_actual < componente.cantidad:
-#                 return False
-#         return True
-
-#     class Meta:
-#         verbose_name = "Kit"
-#         verbose_name_plural = "Kits"
+    class Meta:
+        verbose_name = "Lote"
+        verbose_name_plural = "Lotes"
 
 
-# # Modelo para componentes de Kits
-# class ComponenteKit(models.Model):
-#     kit = models.ForeignKey(Kit, on_delete=models.CASCADE, related_name='componentes')
-#     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-#     cantidad = models.PositiveIntegerField()
+# Modelo para Kits o Conjuntos
+class Kit(models.Model):
+    codigo = models.CharField(max_length=50, unique=True)
+    nombre = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return f"{self.kit.nombre} - {self.producto.nombre} (x{self.cantidad})"
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
 
-#     class Meta:
-#         unique_together = ('kit', 'producto')
+    @property
+    def disponible(self):
+        """Verifica si el kit está disponible basado en sus componentes"""
+        for componente in self.componentes.all():
+            if componente.producto.stock_actual < componente.cantidad:
+                return False
+        return True
+
+    class Meta:
+        verbose_name = "Kit"
+        verbose_name_plural = "Kits"
 
 
-# # Modelo para Proyectos
-# class Proyecto(models.Model):
-#     ESTADOS = [
-#         ('PLANIFICADO', 'Planificado'),
-#         ('EN_CURSO', 'En Curso'),
-#         ('PAUSADO', 'Pausado'),
-#         ('COMPLETADO', 'Completado'),
-#         ('CANCELADO', 'Cancelado'),
-#     ]
+# Modelo para componentes de Kits
+class ComponenteKit(models.Model):
+    kit = models.ForeignKey(Kit, on_delete=models.CASCADE, related_name='componentes')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
 
-#     codigo = models.CharField(max_length=50, unique=True)
-#     nombre = models.CharField(max_length=200)
-#     descripcion = models.TextField()
-#     estado = models.CharField(max_length=20, choices=ESTADOS, default='PLANIFICADO')
-#     fecha_inicio = models.DateField()
-#     fecha_fin_estimada = models.DateField()
-#     fecha_fin_real = models.DateField(null=True, blank=True)
-#     responsable = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    def __str__(self):
+        return f"{self.kit.nombre} - {self.producto.nombre} (x{self.cantidad})"
 
-#     def __str__(self):
-#         return f"{self.codigo} - {self.nombre}"
+    class Meta:
+        unique_together = ('kit', 'producto')
 
-#     class Meta:
-#         verbose_name = "Proyecto"
-#         verbose_name_plural = "Proyectos"
+
+# Modelo para Proyectos
+class Proyecto(models.Model):
+    ESTADOS = [
+        ('PLANIFICADO', 'Planificado'),
+        ('EN_CURSO', 'En Curso'),
+        ('PAUSADO', 'Pausado'),
+        ('COMPLETADO', 'Completado'),
+        ('CANCELADO', 'Cancelado'),
+    ]
+
+    codigo = models.CharField(max_length=50, unique=True)
+    nombre = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='PLANIFICADO')
+    fecha_inicio = models.DateField()
+    fecha_fin_estimada = models.DateField()
+    fecha_fin_real = models.DateField(null=True, blank=True)
+    responsable = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
+
+    class Meta:
+        verbose_name = "Proyecto"
+        verbose_name_plural = "Proyectos"
 
 
 # # Modelo para Movimientos de Inventario
