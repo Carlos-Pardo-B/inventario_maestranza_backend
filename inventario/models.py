@@ -371,47 +371,47 @@ class Alerta(models.Model):
         ordering = ['-fecha_creacion']
 
 
-# # Modelo para Auditorías de Inventario
-# class AuditoriaInventario(models.Model):
-#     ESTADOS = [
-#         ('PLANIFICADA', 'Planificada'),
-#         ('EN_PROCESO', 'En Proceso'),
-#         ('COMPLETADA', 'Completada'),
-#         ('CANCELADA', 'Cancelada'),
-#     ]
+# Modelo para Auditorías de Inventario
+class AuditoriaInventario(models.Model):
+    ESTADOS = [
+        ('PLANIFICADA', 'Planificada'),
+        ('EN_PROCESO', 'En Proceso'),
+        ('COMPLETADA', 'Completada'),
+        ('CANCELADA', 'Cancelada'),
+    ]
 
-#     codigo = models.CharField(max_length=20, unique=True)
-#     nombre = models.CharField(max_length=200)
-#     estado = models.CharField(max_length=20, choices=ESTADOS, default='PLANIFICADA')
-#     fecha_inicio = models.DateTimeField()
-#     fecha_fin = models.DateTimeField(null=True, blank=True)
-#     auditor = models.ForeignKey(Usuario, on_delete=models.PROTECT)
-#     observaciones = models.TextField(blank=True)
+    codigo = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=200)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='PLANIFICADA')
+    fecha_inicio = models.DateTimeField()
+    fecha_fin = models.DateTimeField(null=True, blank=True)
+    auditor = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    observaciones = models.TextField(blank=True)
 
-#     def __str__(self):
-#         return f"Auditoría {self.codigo} - {self.nombre}"
+    def __str__(self):
+        return f"Auditoría {self.codigo} - {self.nombre}"
 
-#     class Meta:
-#         verbose_name = "Auditoría de Inventario"
-#         verbose_name_plural = "Auditorías de Inventario"
+    class Meta:
+        verbose_name = "Auditoría de Inventario"
+        verbose_name_plural = "Auditorías de Inventario"
 
 
-# # Modelo para Detalles de Auditoría
-# class DetalleAuditoria(models.Model):
-#     auditoria = models.ForeignKey(AuditoriaInventario, on_delete=models.CASCADE, related_name='detalles')
-#     producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
-#     ubicacion = models.ForeignKey(Ubicacion, on_delete=models.PROTECT)
-#     stock_sistema = models.PositiveIntegerField()
-#     stock_fisico = models.PositiveIntegerField()
-#     diferencia = models.IntegerField()
-#     observaciones = models.TextField(blank=True)
+# Modelo para Detalles de Auditoría
+class DetalleAuditoria(models.Model):
+    auditoria = models.ForeignKey(AuditoriaInventario, on_delete=models.CASCADE, related_name='detalles')
+    producto = models.ForeignKey(Producto, on_delete=models.PROTECT)
+    ubicacion = models.ForeignKey(Ubicacion, on_delete=models.PROTECT)
+    stock_sistema = models.PositiveIntegerField()
+    stock_fisico = models.PositiveIntegerField()
+    diferencia = models.IntegerField()
+    observaciones = models.TextField(blank=True)
 
-#     def save(self, *args, **kwargs):
-#         self.diferencia = self.stock_fisico - self.stock_sistema
-#         super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.diferencia = self.stock_fisico - self.stock_sistema
+        super().save(*args, **kwargs)
 
-#     def __str__(self):
-#         return f"{self.auditoria.codigo} - {self.producto.nombre}"
+    def __str__(self):
+        return f"{self.auditoria.codigo} - {self.producto.nombre}"
 
-#     class Meta:
-#         unique_together = ('auditoria', 'producto', 'ubicacion')
+    class Meta:
+        unique_together = ('auditoria', 'producto', 'ubicacion')
