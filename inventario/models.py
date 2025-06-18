@@ -62,73 +62,73 @@ class Categoria(models.Model):
         verbose_name_plural = "Categorías"
 
 
-# # Modelo para Ubicaciones físicas en el almacén
-# class Ubicacion(models.Model):
-#     codigo = models.CharField(max_length=20, unique=True)
-#     nombre = models.CharField(max_length=100)
-#     descripcion = models.TextField(blank=True)
-#     seccion = models.CharField(max_length=50)
-#     pasillo = models.CharField(max_length=10, blank=True)
-#     estante = models.CharField(max_length=10, blank=True)
-#     nivel = models.CharField(max_length=10, blank=True)
-#     activo = models.BooleanField(default=True)
+# Modelo para Ubicaciones físicas en el almacén
+class Ubicacion(models.Model):
+    codigo = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True)
+    seccion = models.CharField(max_length=50)
+    pasillo = models.CharField(max_length=10, blank=True)
+    estante = models.CharField(max_length=10, blank=True)
+    nivel = models.CharField(max_length=10, blank=True)
+    activo = models.BooleanField(default=True)
 
-#     def __str__(self):
-#         return f"{self.codigo} - {self.nombre}"
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
 
-#     class Meta:
-#         verbose_name = "Ubicación"
-#         verbose_name_plural = "Ubicaciones"
+    class Meta:
+        verbose_name = "Ubicación"
+        verbose_name_plural = "Ubicaciones"
 
 
-# # Modelo principal para Productos/Piezas
-# class Producto(models.Model):
-#     UNIDADES_MEDIDA = [
-#         ('UN', 'Unidad'),
-#         ('KG', 'Kilogramo'),
-#         ('LT', 'Litro'),
-#         ('MT', 'Metro'),
-#         ('M2', 'Metro Cuadrado'),
-#         ('M3', 'Metro Cúbico'),
-#     ]
+# Modelo principal para Productos/Piezas
+class Producto(models.Model):
+    UNIDADES_MEDIDA = [
+        ('UN', 'Unidad'),
+        ('KG', 'Kilogramo'),
+        ('LT', 'Litro'),
+        ('MT', 'Metro'),
+        ('M2', 'Metro Cuadrado'),
+        ('M3', 'Metro Cúbico'),
+    ]
 
-#     codigo = models.CharField(max_length=50, unique=True)
-#     nombre = models.CharField(max_length=200)
-#     descripcion = models.TextField()
-#     numero_serie = models.CharField(max_length=100, blank=True)
-#     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
-#     unidad_medida = models.CharField(max_length=5, choices=UNIDADES_MEDIDA)
-#     precio_promedio = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-#     stock_minimo = models.PositiveIntegerField(default=0)
-#     stock_maximo = models.PositiveIntegerField(default=0)
-#     requiere_lote = models.BooleanField(default=False)
-#     tiene_vencimiento = models.BooleanField(default=False)
-#     dias_vencimiento = models.PositiveIntegerField(null=True, blank=True)
-#     activo = models.BooleanField(default=True)
-#     fecha_creacion = models.DateTimeField(auto_now_add=True)
-#     fecha_modificacion = models.DateTimeField(auto_now=True)
-#     creado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT)
+    codigo = models.CharField(max_length=50, unique=True)
+    nombre = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    numero_serie = models.CharField(max_length=100, blank=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    unidad_medida = models.CharField(max_length=5, choices=UNIDADES_MEDIDA)
+    precio_promedio = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    stock_minimo = models.PositiveIntegerField(default=0)
+    stock_maximo = models.PositiveIntegerField(default=0)
+    requiere_lote = models.BooleanField(default=False)
+    tiene_vencimiento = models.BooleanField(default=False)
+    dias_vencimiento = models.PositiveIntegerField(null=True, blank=True)
+    activo = models.BooleanField(default=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    creado_por = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
-#     def __str__(self):
-#         return f"{self.codigo} - {self.nombre}"
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
 
-#     @property
-#     def stock_actual(self):
-#         """Calcula el stock actual basado en los movimientos"""
-#         ingresos = self.movimientos.filter(tipo='INGRESO').aggregate(
-#             total=models.Sum('cantidad'))['total'] or 0
-#         salidas = self.movimientos.filter(tipo='SALIDA').aggregate(
-#             total=models.Sum('cantidad'))['total'] or 0
-#         return ingresos - salidas
+    @property
+    def stock_actual(self):
+        """Calcula el stock actual basado en los movimientos"""
+        ingresos = self.movimientos.filter(tipo='INGRESO').aggregate(
+            total=models.Sum('cantidad'))['total'] or 0
+        salidas = self.movimientos.filter(tipo='SALIDA').aggregate(
+            total=models.Sum('cantidad'))['total'] or 0
+        return ingresos - salidas
 
-#     @property
-#     def requiere_reposicion(self):
-#         """Verifica si el stock actual está por debajo del mínimo"""
-#         return self.stock_actual <= self.stock_minimo
+    @property
+    def requiere_reposicion(self):
+        """Verifica si el stock actual está por debajo del mínimo"""
+        return self.stock_actual <= self.stock_minimo
 
-#     class Meta:
-#         verbose_name = "Producto"
-#         verbose_name_plural = "Productos"
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
 
 
 # # Modelo para Etiquetas personalizadas
