@@ -1,5 +1,23 @@
 from django.contrib import admin
-from .models import Usuario, Proveedor, Categoria, Ubicacion, Producto, Etiqueta, ProductoEtiqueta, Lote, Kit, ComponenteKit, Proyecto, MovimientoInventario, OrdenCompra, DetalleOrdenCompra, Alerta, AuditoriaInventario, DetalleAuditoria
+from .models import (
+    Usuario, 
+    Proveedor, 
+    Categoria, 
+    Ubicacion, 
+    Producto, 
+    Etiqueta, 
+    ProductoEtiqueta, 
+    Lote, 
+    Kit, 
+    ComponenteKit, 
+    Proyecto, 
+    MovimientoInventario, 
+    OrdenCompra, 
+    DetalleOrdenCompra, 
+    Alerta, 
+    AuditoriaInventario, 
+    DetalleAuditoria
+    )
 
 # Register your models here.
 admin.site.register(Usuario)
