@@ -6,7 +6,7 @@ from .models import (
     Producto, 
     ProductoEtiqueta, 
     Lote, 
-    MovimientoInventario, 
+     Movimiento, 
     Kit, 
     ComponenteKit,
     )
@@ -17,6 +17,6 @@ admin.site.register(Etiqueta)
 admin.site.register(Producto)
 admin.site.register(ProductoEtiqueta)
 admin.site.register(Lote)
-admin.site.register(MovimientoInventario)
+admin.site.register( Movimiento)
 admin.site.register(Kit)
 admin.site.register(ComponenteKit)

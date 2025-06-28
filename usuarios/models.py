@@ -20,6 +20,7 @@ class Usuario(AbstractUser):
     telefono = models.CharField(max_length=15, blank=True)
     activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)  # Añade esta línea
 
     def __str__(self):
         return f"{self.username} - {self.get_rol_display()}"

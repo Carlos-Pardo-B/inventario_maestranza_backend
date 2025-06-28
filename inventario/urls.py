@@ -12,6 +12,9 @@ router.register(r'lotes', LoteViewSet)
 router.register(r'movimientos', MovimientoInventarioViewSet)
 router.register(r'kits', KitViewSet)
 router.register(r'componentes-kit', ComponenteKitViewSet)
+router.register(r'alertas', AlertaStockViewSet, basename='alertas')
+router.register(r'productos-alertas', ProductoAlertasViewSet, basename='productos-alertas')
+router.register(r'alertas-stock-bajo', AlertaStockBajoViewSet, basename='alertas-stock-bajo')
 
 urlpatterns = [
     path('', include(router.urls)),

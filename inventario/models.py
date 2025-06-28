@@ -48,15 +48,27 @@ class Producto(models.Model):
         ('M3', 'Metro Cúbico'),
     ]
 
+    # Campos existentes (mantener)
     codigo = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=200)
-    descripcion = models.TextField()
-    numero_serie = models.CharField(max_length=100, blank=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    descripcion = models.TextField(blank=True)
+    categoria = models.ForeignKey('Categoria', on_delete=models.PROTECT)
     unidad_medida = models.CharField(max_length=5, choices=UNIDADES)
     precio_promedio = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    stock_minimo = models.PositiveIntegerField(default=0)
-    stock_maximo = models.PositiveIntegerField(default=0)
+    
+    # Campos de stock (modificar/agregar)
+    stock_fisico = models.PositiveIntegerField(default=0, verbose_name="Stock en almacén")
+    stock_reservado = models.PositiveIntegerField(default=0, verbose_name="Stock reservado")
+    stock_minimo = models.PositiveIntegerField(default=0, help_text="Nivel crítico - Genera alerta urgente")
+    stock_regular = models.PositiveIntegerField(
+        default=0, 
+        help_text="Nivel de advertencia - Genera alerta preventiva",
+        null=True,
+        blank=True
+    )
+    stock_maximo = models.PositiveIntegerField(default=0, help_text="Nivel máximo deseado")
+    
+    # Campos adicionales
     requiere_lote = models.BooleanField(default=False)
     tiene_vencimiento = models.BooleanField(default=False)
     dias_vencimiento = models.PositiveIntegerField(null=True, blank=True)
@@ -65,18 +77,29 @@ class Producto(models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
     creado_por = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
+    # Propiedades calculadas
+    @property
+    def stock_disponible(self):
+        """Stock disponible para ventas/nuevos pedidos"""
+        return max(0, self.stock_fisico - self.stock_reservado)
+    
+    @property
+    def stock_actual(self):
+        """Alias para compatibilidad"""
+        return self.stock_disponible
+    
+    @property
+    def requiere_reposicion(self):
+        """Indica si el producto necesita reposición"""
+        return self.stock_disponible <= self.stock_minimo
+    
     def __str__(self):
         return f"{self.codigo} - {self.nombre}"
 
-    @property
-    def stock_actual(self):
-        ingresos = self.movimientos.filter(tipo='INGRESO').aggregate(total=models.Sum('cantidad'))['total'] or 0
-        salidas = self.movimientos.filter(tipo='SALIDA').aggregate(total=models.Sum('cantidad'))['total'] or 0
-        return ingresos - salidas
-
-    @property
-    def requiere_reposicion(self):
-        return self.stock_actual <= self.stock_minimo
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
+        ordering = ['codigo']
 
 
 class ProductoEtiqueta(models.Model):
@@ -114,34 +137,54 @@ class Lote(models.Model):
             return timezone.now().date() > self.fecha_vencimiento
         return False
 
-
-class MovimientoInventario(models.Model):
-    TIPOS = [
+class Movimiento(models.Model):
+    TIPO_CHOICES = [
         ('INGRESO', 'Ingreso'),
         ('SALIDA', 'Salida'),
-        ('TRANSFERENCIA', 'Transferencia'),
         ('AJUSTE', 'Ajuste'),
-        ('DEVOLUCION', 'Devolución'),
+        ('RESERVA', 'Reserva'),
+        ('CANCELACION', 'Cancelación de reserva'),
     ]
 
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    numero = models.CharField(max_length=20, unique=True)
-    tipo = models.CharField(max_length=20, choices=TIPOS)
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='movimientos')
-    lote = models.ForeignKey(Lote, on_delete=models.PROTECT, related_name='movimientos', null=True, blank=True)
+    tipo = models.CharField(max_length=15, choices=TIPO_CHOICES)
     cantidad = models.PositiveIntegerField()
-    precio_unitario = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-    ubicacion_origen = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_origen', null=True, blank=True)
-    ubicacion_destino = models.ForeignKey(Ubicacion, on_delete=models.PROTECT, related_name='movimientos_destino', null=True, blank=True)
-    proyecto = models.ForeignKey('proyectos.Proyecto', on_delete=models.PROTECT, null=True, blank=True)
-    proveedor = models.ForeignKey('compras.Proveedor', on_delete=models.PROTECT, null=True, blank=True)
-    documento_referencia = models.CharField(max_length=100, blank=True)
-    observaciones = models.TextField(blank=True)
-    fecha_movimiento = models.DateTimeField(auto_now_add=True)
+    lote = models.CharField(max_length=50, blank=True, null=True)
+    fecha_vencimiento = models.DateField(blank=True, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    comentario = models.TextField(blank=True)
+    relacionado_con = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        """Actualiza el stock al guardar el movimiento"""
+        es_nuevo = self._state.adding
+        
+        super().save(*args, **kwargs)
+        
+        if es_nuevo:
+            self.actualizar_stock_producto()
+
+    def actualizar_stock_producto(self):
+        """Actualiza el stock físico o reservado según el tipo de movimiento"""
+        if self.tipo == 'INGRESO':
+            self.producto.stock_fisico += self.cantidad
+        elif self.tipo == 'SALIDA':
+            self.producto.stock_fisico -= self.cantidad
+        elif self.tipo == 'RESERVA':
+            self.producto.stock_reservado += self.cantidad
+        elif self.tipo == 'CANCELACION':
+            self.producto.stock_reservado -= self.cantidad
+        
+        self.producto.save()
 
     def __str__(self):
-        return f"{self.numero} - {self.get_tipo_display()} - {self.producto.nombre}"
+        return f"{self.get_tipo_display()} - {self.producto.codigo} ({self.cantidad})"
+
+    class Meta:
+        verbose_name = "Movimiento de stock"
+        verbose_name_plural = "Movimientos de stock"
+        ordering = ['-fecha']
 
 
 class Kit(models.Model):
@@ -172,3 +215,39 @@ class ComponenteKit(models.Model):
 
     class Meta:
         unique_together = ('kit', 'producto')
+
+class AlertaStock(models.Model):
+    NIVEL_ALERTA = [
+        ('MINIMO', 'Stock Mínimo Alcanzado'),  # Solo nos interesa este nivel
+    ]
+    
+    ESTADO_ALERTA = [
+        ('PENDIENTE', 'Pendiente'),
+        ('RESUELTA', 'Resuelta'),
+    ]
+    
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='alertas')
+    nivel_alerta = models.CharField(max_length=10, choices=NIVEL_ALERTA, default='MINIMO')
+    stock_actual = models.PositiveIntegerField()
+    estado = models.CharField(max_length=10, choices=ESTADO_ALERTA, default='PENDIENTE')
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+    creada_por = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='alertas_creadas'
+    )
+    resuelta_por = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='alertas_resueltas'
+    )
+    comentarios = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-fecha_creacion']
+        verbose_name = 'Alerta de Stock Bajo'
+        verbose_name_plural = 'Alertas de Stock Bajo'

@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = [
     'coreapi',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'django_filters',
 ]
 
 LOCAL_APPS = [

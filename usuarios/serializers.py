@@ -4,15 +4,29 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Usuario
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    rol_display = serializers.CharField(source='get_rol_display', read_only=True)
+    
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'rol', 'telefono', 'activo']
-
+        fields = [
+            'id', 'username', 'first_name', 'last_name', 
+            'email', 'rol', 'rol_display', 'telefono', 
+            'activo', 'fecha_creacion'  # Elimina fecha_modificacion de aquí
+        ]
+        read_only_fields = [
+            'id', 'fecha_creacion', 
+            'rol_display'
+        ]
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
 class UsuarioListSerializer(serializers.ModelSerializer):
+    rol_display = serializers.CharField(source='get_rol_display', read_only=True)
+    
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'rol', 'activo']
+        fields = ['id', 'username', 'email', 'rol', 'rol_display', 'activo']
 
 
 class LoginSerializer(serializers.Serializer):
