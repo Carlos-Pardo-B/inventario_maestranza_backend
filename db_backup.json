@@ -1,0 +1,860 @@
+[
+  {
+    "model": "sessions.session",
+    "pk": "ab7xbnhn81dainwgnq2gdep8tw2vx8yk",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQRf-FtSGA5VGX7v0GMsMMUjWQlHZl_HdD0oVu7znnvkWEfStx77zGhcRFaHH63RDSk-sA9IB6bzK1uq0LyqHIg3Z5a8Sv6-H-HRToZdSTdtlObCxl0gDezBCUs0qlZPGsmVTw2aNGSmisz8oFn1gbZyggz-LzBet8OCo:1uVI34:27cdcwREEE9fAyOQjwePcw_C_fsYDuCihYHGhjlC-F8",
+      "expire_date": "2025-07-11T22:59:58.159Z"
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$z2ViU9iZuTCAu82xQpcL4k$y8hmyy33F2A+OUhI8a48zWrI9psHZu1mQDdxQDQhirM=",
+      "last_login": "2025-06-27T22:59:58.152Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "car.pardo@duocuc.cl",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-06-27T22:59:32.125Z",
+      "rol": "USUARIO_FINAL",
+      "telefono": "",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T22:59:33.210Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$HygsKk4gMF6fY6U6RYPRvQ$UHJglL99KWUR3E9EMWil79Gcs5qLNL6noTuSBxYNxJU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "admin_sistema",
+      "first_name": "Carlos",
+      "last_name": "Administrador",
+      "email": "c.admin@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:17:28.047Z",
+      "rol": "ADMIN",
+      "telefono": "+56912345678",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:17:29.424Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$P9tpWLvD6VWOC2l63CyK5V$xBifBXeo17lRA6jemi0oXKcy9L+djxKvaN2gCFkZO1E=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "gestor_inv",
+      "first_name": "María",
+      "last_name": "Inventarios",
+      "email": "m.inventarios@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:17:42.897Z",
+      "rol": "GESTOR_INV",
+      "telefono": "+56987654321",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:17:44.440Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$SyNEw4BZcjVCs5WhU1DYfA$ytQSIErolSgTjKm3ae6jl8ybJ4JfP80euwBY7VQ48kQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "comprador1",
+      "first_name": "Juan",
+      "last_name": "Comprador",
+      "email": "j.comprador@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:17:53.458Z",
+      "rol": "COMPRADOR",
+      "telefono": "+56911223344",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:17:55.714Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$W0J7ZvsAZOO06ygxX2C4AB$spAbvbzB+rvnydn+nqyieSF6a1JlWwPXP/vMoQ87JIw=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "logistica_master",
+      "first_name": "Ana",
+      "last_name": "Logística",
+      "email": "a.logistica@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:18:01.309Z",
+      "rol": "LOGISTICA",
+      "telefono": "+56955667788",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:18:02.612Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$asZjVviDf6Qm669yPbkFeq$kQbApKqeBxc1IpUeAkJO5aSmnnsm2RRf+rX3bIc0MBg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jefe_produccion",
+      "first_name": "Pedro",
+      "last_name": "Producción",
+      "email": "p.produccion@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:18:10.177Z",
+      "rol": "JEFE_PROD",
+      "telefono": "+56999887766",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:18:11.627Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$mlTUUDZcPWzEEC7PWtk7zL$t0pL4gd1ciJwVl3TiCYh8DKJCg9XHY3vHPgej1E0vhk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "auditor_inv",
+      "first_name": "Laura",
+      "last_name": "Auditora",
+      "email": "l.auditor@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:18:18.235Z",
+      "rol": "AUDITOR",
+      "telefono": "+56944332211",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:18:19.599Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$gEu2mHIZby5JfURLr1rXYa$yj/xr5N2tPTKJvcU/Dff0dX3M+ntMAxVDp/JfyFzwnw=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "gerente_proyectos",
+      "first_name": "Diego",
+      "last_name": "Proyectos",
+      "email": "d.proyectos@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:18:27.436Z",
+      "rol": "GERENTE_PROY",
+      "telefono": "+56966778899",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:18:29.030Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "usuarios.usuario",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$zqx3rFA6ZsaQzxr7H49XPq$5gzJ0YzAmjXzheUQEQlUTBR/ucqX/C1tjI4EXVV+Muo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "operario_planta",
+      "first_name": "Sofía",
+      "last_name": "Operaria",
+      "email": "s.operaria@empresa.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T23:18:36.302Z",
+      "rol": "USUARIO_FINAL",
+      "telefono": "+56900112233",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:18:37.702Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "inventario.categoria",
+    "pk": 1,
+    "fields": {
+      "nombre": "Materiales de Construcción",
+      "descripcion": "Materiales básicos para construcción",
+      "codigo": "CAT-CONST",
+      "activo": true
+    }
+  },
+  {
+    "model": "inventario.categoria",
+    "pk": 2,
+    "fields": {
+      "nombre": "Herramientas Manuales",
+      "descripcion": "Herramientas de uso manual",
+      "codigo": "CAT-HERR",
+      "activo": true
+    }
+  },
+  {
+    "model": "inventario.categoria",
+    "pk": 3,
+    "fields": {
+      "nombre": "Equipos de Seguridad",
+      "descripcion": "Elementos de protección personal",
+      "codigo": "CAT-SEG",
+      "activo": true
+    }
+  },
+  {
+    "model": "inventario.ubicacion",
+    "pk": 1,
+    "fields": {
+      "codigo": "UB-ALM-01",
+      "nombre": "Almacén Principal",
+      "descripcion": "Almacén central de materiales",
+      "seccion": "A",
+      "pasillo": "1",
+      "estante": "2",
+      "nivel": "3",
+      "activo": true
+    }
+  },
+  {
+    "model": "inventario.ubicacion",
+    "pk": 2,
+    "fields": {
+      "codigo": "UB-ALM-02",
+      "nombre": "Almacén Seguridad",
+      "descripcion": "Almacén para equipos de protección",
+      "seccion": "B",
+      "pasillo": "1",
+      "estante": "1",
+      "nivel": "1",
+      "activo": true
+    }
+  },
+  {
+    "model": "inventario.etiqueta",
+    "pk": 1,
+    "fields": {
+      "nombre": "Fragil",
+      "color": "#FF0000",
+      "descripcion": "Productos que requieren cuidado especial"
+    }
+  },
+  {
+    "model": "inventario.etiqueta",
+    "pk": 2,
+    "fields": {
+      "nombre": "Alto Valor",
+      "color": "#FFFF00",
+      "descripcion": "Productos de alto valor económico"
+    }
+  },
+  {
+    "model": "inventario.etiqueta",
+    "pk": 3,
+    "fields": {
+      "nombre": "Uso Frecuente",
+      "color": "#00FF00",
+      "descripcion": "Productos con alta rotación"
+    }
+  },
+  {
+    "model": "inventario.producto",
+    "pk": 1,
+    "fields": {
+      "codigo": "PROD-001",
+      "nombre": "Cemento 25kg",
+      "descripcion": "Saco de cemento gris 25kg",
+      "numero_serie": "",
+      "categoria": 1,
+      "unidad_medida": "KG",
+      "precio_promedio": "4500.00",
+      "stock_minimo": 50,
+      "stock_maximo": 200,
+      "requiere_lote": false,
+      "tiene_vencimiento": true,
+      "dias_vencimiento": 180,
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:28:57.714Z",
+      "fecha_modificacion": "2025-06-27T23:28:57.714Z",
+      "creado_por": 1
+    }
+  },
+  {
+    "model": "inventario.producto",
+    "pk": 2,
+    "fields": {
+      "codigo": "PROD-002",
+      "nombre": "Martillo 16oz",
+      "descripcion": "Martillo de carpintero 16 onzas",
+      "numero_serie": "",
+      "categoria": 2,
+      "unidad_medida": "UN",
+      "precio_promedio": "12500.00",
+      "stock_minimo": 10,
+      "stock_maximo": 30,
+      "requiere_lote": false,
+      "tiene_vencimiento": false,
+      "dias_vencimiento": null,
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:29:09.091Z",
+      "fecha_modificacion": "2025-06-27T23:29:09.091Z",
+      "creado_por": 2
+    }
+  },
+  {
+    "model": "inventario.producto",
+    "pk": 3,
+    "fields": {
+      "codigo": "PROD-003",
+      "nombre": "Casco de Seguridad",
+      "descripcion": "Casco de seguridad industrial",
+      "numero_serie": "",
+      "categoria": 3,
+      "unidad_medida": "UN",
+      "precio_promedio": "8500.00",
+      "stock_minimo": 15,
+      "stock_maximo": 50,
+      "requiere_lote": true,
+      "tiene_vencimiento": true,
+      "dias_vencimiento": 365,
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:29:20.072Z",
+      "fecha_modificacion": "2025-06-27T23:29:20.072Z",
+      "creado_por": 1
+    }
+  },
+  {
+    "model": "inventario.producto",
+    "pk": 4,
+    "fields": {
+      "codigo": "PROD-004",
+      "nombre": "Guantes de Protección",
+      "descripcion": "Guantes anti cortes talla L",
+      "numero_serie": "",
+      "categoria": 3,
+      "unidad_medida": "UN",
+      "precio_promedio": "12000.00",
+      "stock_minimo": 20,
+      "stock_maximo": 60,
+      "requiere_lote": true,
+      "tiene_vencimiento": true,
+      "dias_vencimiento": 365,
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:30:07.471Z",
+      "fecha_modificacion": "2025-06-27T23:30:07.471Z",
+      "creado_por": 2
+    }
+  },
+  {
+    "model": "inventario.producto",
+    "pk": 5,
+    "fields": {
+      "codigo": "PROD-005",
+      "nombre": "Destornillador Phillips",
+      "descripcion": "Destornillador punta Phillips #2",
+      "numero_serie": "",
+      "categoria": 2,
+      "unidad_medida": "UN",
+      "precio_promedio": "7500.00",
+      "stock_minimo": 15,
+      "stock_maximo": 40,
+      "requiere_lote": false,
+      "tiene_vencimiento": false,
+      "dias_vencimiento": null,
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:31:46.765Z",
+      "fecha_modificacion": "2025-06-27T23:31:46.765Z",
+      "creado_por": 3
+    }
+  },
+  {
+    "model": "inventario.lote",
+    "pk": 1,
+    "fields": {
+      "codigo": "LOTE-2023-001",
+      "producto": 3,
+      "fecha_ingreso": "2025-06-27T23:32:07.931Z",
+      "fecha_vencimiento": "2024-06-30",
+      "proveedor": 1,
+      "precio_compra": "8000.00",
+      "cantidad_inicial": 100,
+      "observaciones": "Lote recibido el 15/06/2023"
+    }
+  },
+  {
+    "model": "inventario.lote",
+    "pk": 2,
+    "fields": {
+      "codigo": "LOTE-2023-002",
+      "producto": 1,
+      "fecha_ingreso": "2025-06-27T23:32:14.608Z",
+      "fecha_vencimiento": "2023-12-31",
+      "proveedor": 2,
+      "precio_compra": "4300.00",
+      "cantidad_inicial": 200,
+      "observaciones": "Promoción especial"
+    }
+  },
+  {
+    "model": "inventario.movimientoinventario",
+    "pk": "00b4f497-9aa2-47e8-a7b8-37ed20640857",
+    "fields": {
+      "numero": "MOV-INV-2023-003",
+      "tipo": "SALIDA",
+      "producto": 3,
+      "lote": 1,
+      "cantidad": 5,
+      "precio_unitario": "8000.00",
+      "ubicacion_origen": 2,
+      "ubicacion_destino": null,
+      "proyecto": 1,
+      "proveedor": null,
+      "documento_referencia": "SOL-2023-001",
+      "observaciones": "Para proyecto de construcción",
+      "fecha_movimiento": "2025-06-27T23:37:28.507Z",
+      "usuario": 2
+    }
+  },
+  {
+    "model": "inventario.movimientoinventario",
+    "pk": "95243730-f323-4399-b7c2-71f123e25c8d",
+    "fields": {
+      "numero": "MOV-INV-2023-005",
+      "tipo": "AJUSTE",
+      "producto": 1,
+      "lote": 2,
+      "cantidad": 2,
+      "precio_unitario": "4300.00",
+      "ubicacion_origen": 1,
+      "ubicacion_destino": null,
+      "proyecto": null,
+      "proveedor": null,
+      "documento_referencia": "AJS-2023-001",
+      "observaciones": "Ajuste por inventario físico",
+      "fecha_movimiento": "2025-06-27T23:38:00.994Z",
+      "usuario": 2
+    }
+  },
+  {
+    "model": "inventario.movimientoinventario",
+    "pk": "9642d0f2-39c1-4b8b-8cac-8b221d99af9f",
+    "fields": {
+      "numero": "MOV-INV-2023-001",
+      "tipo": "INGRESO",
+      "producto": 1,
+      "lote": 2,
+      "cantidad": 200,
+      "precio_unitario": "4300.00",
+      "ubicacion_origen": null,
+      "ubicacion_destino": 1,
+      "proyecto": null,
+      "proveedor": 2,
+      "documento_referencia": "FAC-2023-001",
+      "observaciones": "Ingreso inicial de inventario",
+      "fecha_movimiento": "2025-06-27T23:33:34.705Z",
+      "usuario": 1
+    }
+  },
+  {
+    "model": "inventario.movimientoinventario",
+    "pk": "db1170cb-4bb9-4179-93ac-a3171adb0c02",
+    "fields": {
+      "numero": "MOV-INV-2023-002",
+      "tipo": "INGRESO",
+      "producto": 3,
+      "lote": 1,
+      "cantidad": 100,
+      "precio_unitario": "8000.00",
+      "ubicacion_origen": null,
+      "ubicacion_destino": 2,
+      "proyecto": null,
+      "proveedor": 1,
+      "documento_referencia": "FAC-2023-002",
+      "observaciones": "Ingreso de cascos de seguridad",
+      "fecha_movimiento": "2025-06-27T23:33:41.187Z",
+      "usuario": 1
+    }
+  },
+  {
+    "model": "inventario.movimientoinventario",
+    "pk": "e1b62085-d99e-459c-8096-75fd2e7bcfd5",
+    "fields": {
+      "numero": "MOV-INV-2023-004",
+      "tipo": "TRANSFERENCIA",
+      "producto": 2,
+      "lote": null,
+      "cantidad": 10,
+      "precio_unitario": "12500.00",
+      "ubicacion_origen": 1,
+      "ubicacion_destino": 2,
+      "proyecto": null,
+      "proveedor": null,
+      "documento_referencia": "TRF-2023-001",
+      "observaciones": "Transferencia entre almacenes",
+      "fecha_movimiento": "2025-06-27T23:37:35.981Z",
+      "usuario": 3
+    }
+  },
+  {
+    "model": "inventario.kit",
+    "pk": 1,
+    "fields": {
+      "codigo": "KIT-001",
+      "nombre": "Kit Básico de Herramientas",
+      "descripcion": "Kit con herramientas esenciales para mantenimiento",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:39:04.626Z"
+    }
+  },
+  {
+    "model": "inventario.kit",
+    "pk": 2,
+    "fields": {
+      "codigo": "KIT-002",
+      "nombre": "Kit de Seguridad Personal",
+      "descripcion": "Equipo de protección básico para trabajadores",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:39:17.360Z"
+    }
+  },
+  {
+    "model": "inventario.kit",
+    "pk": 3,
+    "fields": {
+      "codigo": "KIT-003",
+      "nombre": "Kit de Limpieza Industrial",
+      "descripcion": "Productos para limpieza y mantenimiento de áreas",
+      "activo": false,
+      "fecha_creacion": "2025-06-27T23:39:25.138Z"
+    }
+  },
+  {
+    "model": "inventario.componentekit",
+    "pk": 1,
+    "fields": {
+      "kit": 1,
+      "producto": 2,
+      "cantidad": 1
+    }
+  },
+  {
+    "model": "inventario.componentekit",
+    "pk": 2,
+    "fields": {
+      "kit": 1,
+      "producto": 5,
+      "cantidad": 1
+    }
+  },
+  {
+    "model": "inventario.componentekit",
+    "pk": 3,
+    "fields": {
+      "kit": 2,
+      "producto": 3,
+      "cantidad": 1
+    }
+  },
+  {
+    "model": "inventario.componentekit",
+    "pk": 4,
+    "fields": {
+      "kit": 2,
+      "producto": 4,
+      "cantidad": 1
+    }
+  },
+  {
+    "model": "inventario.componentekit",
+    "pk": 5,
+    "fields": {
+      "kit": 3,
+      "producto": 4,
+      "cantidad": 3
+    }
+  },
+  {
+    "model": "compras.proveedor",
+    "pk": 1,
+    "fields": {
+      "codigo": "PROV-001",
+      "nombre": "Suministros Industriales S.A.",
+      "rut": "12345678-9",
+      "direccion": "Av. Industrial 1234, Santiago",
+      "telefono": "+56228887777",
+      "email": "contacto@suministrosindustriales.cl",
+      "contacto_principal": "Juan Pérez",
+      "terminos_pago": "30 días",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:24:03.400Z",
+      "fecha_modificacion": "2025-06-27T23:24:03.400Z"
+    }
+  },
+  {
+    "model": "compras.proveedor",
+    "pk": 2,
+    "fields": {
+      "codigo": "PROV-002",
+      "nombre": "Ferretería El Constructor",
+      "rut": "98765432-1",
+      "direccion": "Calle Los Maestros 567, Valparaíso",
+      "telefono": "+56322233445",
+      "email": "ventas@elconstructor.cl",
+      "contacto_principal": "María González",
+      "terminos_pago": "Contado con 5% descuento",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:24:10.329Z",
+      "fecha_modificacion": "2025-06-27T23:24:10.329Z"
+    }
+  },
+  {
+    "model": "compras.proveedor",
+    "pk": 3,
+    "fields": {
+      "codigo": "PROV-003",
+      "nombre": "Distribuidora de Materiales Ltda.",
+      "rut": "45678901-2",
+      "direccion": "Ruta 5 Norte Km 45, Rancagua",
+      "telefono": "+56722334455",
+      "email": "info@distribuidoramateriales.cl",
+      "contacto_principal": "Carlos Muñoz",
+      "terminos_pago": "50% anticipo, 50% contra entrega",
+      "activo": true,
+      "fecha_creacion": "2025-06-27T23:24:17.505Z",
+      "fecha_modificacion": "2025-06-27T23:24:17.505Z"
+    }
+  },
+  {
+    "model": "compras.ordencompra",
+    "pk": 1,
+    "fields": {
+      "numero": "OC-2023-001",
+      "proveedor": 1,
+      "estado": "BORRADOR",
+      "fecha_orden": "2025-06-27T23:42:23.073Z",
+      "fecha_entrega_estimada": "2023-06-15",
+      "total": "375000.00",
+      "observaciones": "Materiales para proyecto X",
+      "creado_por": 1
+    }
+  },
+  {
+    "model": "compras.ordencompra",
+    "pk": 2,
+    "fields": {
+      "numero": "OC-2023-002",
+      "proveedor": 2,
+      "estado": "CONFIRMADA",
+      "fecha_orden": "2025-06-27T23:42:29.728Z",
+      "fecha_entrega_estimada": "2023-06-20",
+      "total": "420000.00",
+      "observaciones": "Insumos urgentes",
+      "creado_por": 2
+    }
+  },
+  {
+    "model": "compras.ordencompra",
+    "pk": 3,
+    "fields": {
+      "numero": "OC-2023-003",
+      "proveedor": 3,
+      "estado": "RECIBIDA",
+      "fecha_orden": "2025-06-27T23:42:36.136Z",
+      "fecha_entrega_estimada": "2023-05-30",
+      "total": "185000.00",
+      "observaciones": "Pedido completo",
+      "creado_por": 1
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 1,
+    "fields": {
+      "orden_compra": 1,
+      "producto": 1,
+      "cantidad": 5,
+      "precio_unitario": "12000.00",
+      "subtotal": "60000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 2,
+    "fields": {
+      "orden_compra": 2,
+      "producto": 1,
+      "cantidad": 10,
+      "precio_unitario": "12500.00",
+      "subtotal": "125000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 3,
+    "fields": {
+      "orden_compra": 1,
+      "producto": 3,
+      "cantidad": 5,
+      "precio_unitario": "34200.00",
+      "subtotal": "171000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 4,
+    "fields": {
+      "orden_compra": 2,
+      "producto": 2,
+      "cantidad": 8,
+      "precio_unitario": "18750.00",
+      "subtotal": "150000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 5,
+    "fields": {
+      "orden_compra": 2,
+      "producto": 4,
+      "cantidad": 3,
+      "precio_unitario": "41200.00",
+      "subtotal": "123600.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 6,
+    "fields": {
+      "orden_compra": 3,
+      "producto": 1,
+      "cantidad": 20,
+      "precio_unitario": "11800.00",
+      "subtotal": "236000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 7,
+    "fields": {
+      "orden_compra": 3,
+      "producto": 5,
+      "cantidad": 15,
+      "precio_unitario": "5600.00",
+      "subtotal": "84000.00"
+    }
+  },
+  {
+    "model": "compras.detalleordencompra",
+    "pk": 8,
+    "fields": {
+      "orden_compra": 3,
+      "producto": 3,
+      "cantidad": 8,
+      "precio_unitario": "14200.00",
+      "subtotal": "113600.00"
+    }
+  },
+  {
+    "model": "proyectos.proyecto",
+    "pk": 1,
+    "fields": {
+      "codigo": "PROY-2023-001",
+      "nombre": "Ampliación Planta Industrial",
+      "descripcion": "Construcción de nueva nave industrial de 5,000 m2",
+      "estado": "EN_CURSO",
+      "fecha_inicio": "2023-03-15",
+      "fecha_fin_estimada": "2023-12-20",
+      "fecha_fin_real": null,
+      "responsable": 1
+    }
+  },
+  {
+    "model": "proyectos.proyecto",
+    "pk": 2,
+    "fields": {
+      "codigo": "PROY-2023-002",
+      "nombre": "Modernización Línea Producción",
+      "descripcion": "Actualización de maquinaria en línea principal",
+      "estado": "PLANIFICADO",
+      "fecha_inicio": "2023-06-01",
+      "fecha_fin_estimada": "2023-09-30",
+      "fecha_fin_real": null,
+      "responsable": 1
+    }
+  },
+  {
+    "model": "proyectos.proyecto",
+    "pk": 3,
+    "fields": {
+      "codigo": "PROY-2022-003",
+      "nombre": "Sistema Gestión de Inventarios",
+      "descripcion": "Implementación software de control de inventario",
+      "estado": "COMPLETADO",
+      "fecha_inicio": "2022-10-10",
+      "fecha_fin_estimada": "2023-02-28",
+      "fecha_fin_real": "2023-02-15",
+      "responsable": 1
+    }
+  },
+  {
+    "model": "proyectos.proyecto",
+    "pk": 4,
+    "fields": {
+      "codigo": "PROY-2023-004",
+      "nombre": "Capacitación Seguridad Industrial",
+      "descripcion": "Programa de capacitación para todo el personal",
+      "estado": "PAUSADO",
+      "fecha_inicio": "2023-04-01",
+      "fecha_fin_estimada": "2023-06-30",
+      "fecha_fin_real": null,
+      "responsable": 1
+    }
+  },
+  {
+    "model": "proyectos.proyecto",
+    "pk": 5,
+    "fields": {
+      "codigo": "PROY-2022-005",
+      "nombre": "Renovación Flota Vehículos",
+      "descripcion": "Reemplazo de 5 camiones de distribución",
+      "estado": "CANCELADO",
+      "fecha_inicio": "2022-11-01",
+      "fecha_fin_estimada": "2023-01-31",
+      "fecha_fin_real": "2023-01-15",
+      "responsable": 1
+    }
+  }
+]
