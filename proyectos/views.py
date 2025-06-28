@@ -8,7 +8,13 @@ from .models import Proyecto
 from .serializers import ProyectoSerializer, ProyectoEstadoSerializer
 from usuarios.models import Usuario
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 
+
+@extend_schema(
+    tags=['Proyectos'],
+    description="Login de usuario (obtener JWT token)"
+)
 class ProyectoViewSet(viewsets.ModelViewSet):
     queryset = Proyecto.objects.all()
     serializer_class = ProyectoSerializer
@@ -27,6 +33,10 @@ class ProyectoViewSet(viewsets.ModelViewSet):
             
         return queryset.order_by('-fecha_inicio')
 
+    @extend_schema(
+    tags=['Estados'],
+    description="Login de usuario (obtener JWT token)"
+    )
     @action(detail=True, methods=['patch'], serializer_class=ProyectoEstadoSerializer)
     def cambiar_estado(self, request, pk=None):
         proyecto = self.get_object()
@@ -45,6 +55,10 @@ class ProyectoViewSet(viewsets.ModelViewSet):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @extend_schema(
+    tags=['Estados'],
+    description="Login de usuario (obtener JWT token)"
+    )
     @action(detail=False, methods=['get'])
     def estados_disponibles(self, request):
         return Response([{'value': e[0], 'display': e[1]} for e in Proyecto.ESTADOS])

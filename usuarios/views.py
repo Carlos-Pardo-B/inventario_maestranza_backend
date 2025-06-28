@@ -4,8 +4,13 @@ from rest_framework import status
 from .serializers import LoginSerializer, RegistroUsuarioSerializer, UsuarioSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-# Create your views here.
 
+from drf_spectacular.utils import extend_schema
+# Create your views here.
+@extend_schema(
+    tags=['Autenticación'],
+    description="Login de usuario (obtener JWT token)"
+)
 class LoginView(APIView):
     permission_classes = []  # Login no requiere token previo
 
@@ -18,6 +23,10 @@ class LoginView(APIView):
 from .serializers import RegistroUsuarioSerializer
 from rest_framework.permissions import AllowAny
 
+@extend_schema(
+    tags=['Usuarios'],
+    description="Registro de usuarios"
+)
 class RegistroView(APIView):
     permission_classes = [AllowAny]  # Permite registro sin autenticación
 

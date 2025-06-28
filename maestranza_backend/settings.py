@@ -149,10 +149,35 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+# Configuración de drf-spectacular
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Inventario Maestranza API',
+    'TITLE': 'Mi API Documentación',
+    'DESCRIPTION': 'Documentación interactiva de todas las APIs',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    
+    # Ordenar y agrupar APIs por tags (aparecen como secciones en Swagger UI)
+    'TAGS': [
+        {
+            'name': 'Autenticación',
+            'description': 'APIs para login, registro y gestión de tokens'
+        },
+        {
+            'name': 'Usuarios',
+            'description': 'CRUD de usuarios y perfiles'
+        },
+        {
+            'name': 'Productos',
+            'description': 'Gestión de catálogo de productos'
+        },
+    ],
+    
+    # Opcional: Agrupar automáticamente por prefijos de URL
+    'SCHEMA_PATH_PREFIX': '/api/',
+    'SCHEMA_PATH_PREFIX_TRIM': True,  # Elimina el prefijo común en los nombres
+    
+    # Opcional: Ordenar los tags como aparecerán en Swagger
+    'TAGS_SORTER': 'alpha',  # 'alpha' (alfabético) o 'method' (por método HTTP)
 }
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
