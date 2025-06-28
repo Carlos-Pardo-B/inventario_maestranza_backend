@@ -9,10 +9,12 @@
 
 ### 1. Clonar el repositorio
 git clone https://github.com/Carlos-Pardo-B/inventario_maestranza_backend.git
+
 cd inventario_maestranza_backend
 
 ### 2. Crear entorno virtual e activarlo
 python -m venv venv
+
 venv\Scripts\activate
 
 ### 3. Instalar dependencias
